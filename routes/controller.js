@@ -107,6 +107,7 @@ exports.getProfile = async (req, res) => {
 };
 
 //edits user-fields
+//does't edit email as its a unique field
 exports.editProfile = async (req, res) => {
     try {
 
@@ -117,9 +118,11 @@ exports.editProfile = async (req, res) => {
 
         const { name, email, password, phone_number, gender } = req.body;
 
+        //checks whether the email provided is the same as the token's (just an extra layer of security)
+        if(user.email != email) return res.status(404).json({ error: "Filed token/email match" });
+
         //editing user fields
         user.name = name;
-        user.email = email;
         user.password = await bcrypt.hash(password, 10);
         user.phone_number = phone_number;
         user.gender = gender;
