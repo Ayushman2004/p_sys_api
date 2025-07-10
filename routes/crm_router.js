@@ -7,15 +7,18 @@ const {
     login,
     getProfile,
     editProfile
-} = require("./controller");
+} = require("../controller/auth_controller");
 
 // Routes
 router.post("/signup", signup);
 router.post("/verify", verifyOtp);
 router.post("/login", login);
 
+//jwt-middleware
+router.use(auth);
+
 //below endpoints uses jwt-middleware
-router.get("/profile", auth, getProfile);
-router.post("/edit", auth, editProfile);
+router.get("/profile", getProfile);
+router.post("/edit", editProfile);
 
 module.exports = router;

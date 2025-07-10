@@ -20,15 +20,22 @@ node app.js
 .
 |── app.js                 # start-point
 |
+├── config/
+│   └── db.js            # User-model
+|
+├── controller/
+│   ├── auth_controller.js          # route-handler
+│   └── lead_controller.js      # provides functions to the router
+|
 ├── routes/
-│   ├── router.js          # route-handler
-│   └── controller.js      # provides functions to the router
+│   ├── lead_router.js          # route-handler
+│   └── crm_router.js      # provides functions to the router
 |
 |──  jwt/
 |   └── auth.js            # jwt-implementation(middleware)
 |   
-├── sql/
-│   ├── db.js              # Sequelize-init
+├── model/
+│   ├── lead.js              # Sequelize-init
 │   └── user.js            # User-model
 |
 ├── .env

@@ -1,6 +1,7 @@
 const express = require("express");
-const sequelize = require("./sql/db");
-const userRoutes = require("./routes/router");
+const sequelize = require("./config/db");
+const crmRoutes = require("./routes/crm_router");
+const leadRouter = require("./routes/lead_router")
 require("dotenv").config();
 
 const app = express();
@@ -12,7 +13,8 @@ sequelize.sync()
     .catch(console.error);
 
 // Routes
-app.use("/", userRoutes);
+app.use("/lead", leadRouter);
+app.use("/", crmRoutes);
 
 // Start server
 const PORT = process.env.PORT;
