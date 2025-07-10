@@ -36,7 +36,11 @@ exports.signup = async (req, res) => {
     });
 
     await user.save();
+
+    console.log("***************************************")
     console.log("User created:", user);
+    console.log("***************************************")
+
     res.status(201).json({ message: "User created successfully" });
 };
 
@@ -59,6 +63,10 @@ exports.verifyOtp = async (req, res) => {
     existingUser.email_verified_at = new Date();
     await existingUser.save();
 
+    console.log("***************************************")
+    console.log("OTP verified: USER: ", existingUser.email);
+    console.log("***************************************")
+
     res.status(201).json({ message: "Email verified successfully" });
 };
 
@@ -79,7 +87,10 @@ exports.login = async (req, res) => {
     //create jwt-token - 1hr validity
     const token = jwt.sign({ id: user.id, email: user.email }, process.env.HASH_KEY, { expiresIn: "1h" });
 
-    console.log("User login:", user);
+    console.log("***************************************")
+    console.log("User login:", user)
+    console.log("***************************************")
+
     res.json({ token });
 };
 
@@ -92,6 +103,10 @@ exports.getProfile = async (req, res) => {
         const user = await User.findByPk(req.user.id);
         //check user validity
         if (!user) return res.status(404).json({ error: "User not found" });
+
+        console.log("***************************************")
+        console.log("User profile-fetches: ", user.email)
+        console.log("***************************************")
 
         res.json({
             id: user.id,
@@ -129,6 +144,11 @@ exports.editProfile = async (req, res) => {
         user.updated_at = new Date();
 
         await user.save();
+
+        console.log("***************************************")
+        console.log("User-edited: ", user)
+        console.log("***************************************")
+
         res.status(201).json({ message: "User edited successfully" });
     } catch (err) {
         console.error("Edit error:", err);
