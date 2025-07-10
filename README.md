@@ -18,25 +18,25 @@ node app.js
 
 ```text
 .
-|── app.js                 # start-point
+|── app.js                      # start-point
 |
 ├── config/
-│   └── db.js            # User-model
+│   └── db.js                   # sequelize-init
 |
 ├── controller/
-│   ├── auth_controller.js          # route-handler
-│   └── lead_controller.js      # provides functions to the router
+│   ├── auth_controller.js      # auth-controller
+│   └── lead_controller.js      # lead-controller
 |
 ├── routes/
-│   ├── lead_router.js          # route-handler
-│   └── crm_router.js      # provides functions to the router
+│   ├── lead_router.js          # lead route-handler
+│   └── crm_router.js           # crm route-handler
 |
 |──  jwt/
-|   └── auth.js            # jwt-implementation(middleware)
+|   └── auth.js                 # jwt-implementation(middleware)
 |   
 ├── model/
-│   ├── lead.js              # Sequelize-init
-│   └── user.js            # User-model
+│   ├── lead.js                 # lead-model
+│   └── user.js                 # user-model
 |
 ├── .env
 |
