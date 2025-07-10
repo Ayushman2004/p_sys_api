@@ -1,4 +1,6 @@
 const { Op } = require("sequelize");
+const csv = require('csvtojson');
+const fs = require('fs');
 const Lead = require("../model/lead");
 
 exports.getLead = async (req, res) => {
@@ -96,3 +98,35 @@ exports.bulkDeleteLeads = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+exports.importLeadFile = async (req, res) => {
+  try {
+    const filePath = req.file.path; // Path to the uploaded CSV file
+    const fileName = req.file.originalname;
+
+    // Convert CSV file to JSON
+    const leads = await csv().fromFile(filePath);
+
+    leads.forEach(lead => {
+      lead.created_at = new Date();
+    });
+
+
+    // Optional: delete the file after reading
+    fs.unlinkSync(filePath);
+
+
+    await Lead.bulkCreate(leads); // for Sequelize
+
+    res.status(200).json({
+      message: "CSV imported successfully",
+      filename: fileName,
+      totalLeads: leads.length,
+      data: leads
+    });
+  } catch (error) {
+    console.error("Error importing CSV:", error);
+    res.status(500).json({ error: "Failed to import CSV file" });
+  }
+}
