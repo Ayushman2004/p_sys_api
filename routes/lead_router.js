@@ -6,6 +6,7 @@ const {
     deleteLead,
     bulkDeleteLeads,
     importLeadFile,
+    createLead
 } = require("../controller/lead_controller");
 
 const upload = multer({ dest: "uploads/" });
@@ -14,6 +15,7 @@ const upload = multer({ dest: "uploads/" });
 router.get("/:id", getLead)
 router.delete("/:id", deleteLead)
 router.post("/bulk-delete", bulkDeleteLeads)
+router.post("/create", createLead)
 router.post("/import", upload.single("file"), importLeadFile)
 
 module.exports = router;

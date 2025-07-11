@@ -130,3 +130,37 @@ exports.importLeadFile = async (req, res) => {
     res.status(500).json({ error: "Failed to import CSV file" });
   }
 }
+
+exports.createLead = async (req, res) => {
+
+    //initialize user
+    const { 
+      name,title, email, mobile, source, service,
+      message, assigned, zip, city, state, address,
+      country, website, date_contacted, description } = req.body;
+
+    //find user
+    const existingLead = await Lead.findOne({ where: { email } });
+
+    //check if user already exists
+    if (existingLead) return res.status(400).json({ error: "User already exists" });
+
+    //back-end field computation
+    const currentTime = new Date();
+
+    //create user
+    const lead = await Lead.create({
+        name,title, email, mobile, source, service,
+      message, assigned, zip, city, state, address,
+      country, website, date_contacted, description,
+      created_at: currentTime
+    });
+
+    await lead.save();
+
+    // console.log("***************************************")
+    // console.log("User created:", user);
+    // console.log("***************************************")
+
+    res.status(201).json({ message: "Lead created successfully" });
+};

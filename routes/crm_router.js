@@ -9,6 +9,7 @@ const {
     editProfile
 } = require("../controller/auth_controller");
 
+
 // Routes
 router.post("/signup", signup);
 router.post("/verify", verifyOtp);
