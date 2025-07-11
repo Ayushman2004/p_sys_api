@@ -18,25 +18,31 @@ node app.js
 
 ```text
 .
-|── app.js                      # start-point
+|── app.js                            # start-point
 |
 ├── config/
-│   └── db.js                   # sequelize-init
+│   └── db.js                         # sequelize-init
 |
-├── controller/
-│   ├── auth_controller.js      # auth-controller
-│   └── lead_controller.js      # lead-controller
+├── controller/ 
+│   ├── auth_controller.js            # auth-controller
+|   ├── agent_controller.js           # agent-controller
+|   ├── notification_controller.js    # notification-controller
+│   └── lead_controller.js            # lead-controller
 |
-├── routes/
-│   ├── lead_router.js          # lead route-handler
-│   └── crm_router.js           # crm route-handler
+├── routes/ 
+│   ├── lead_router.js                # lead route-handler
+|   ├── agent_router.js               # agent route-handler
+|   ├── notification_router.js        # notification route-handler
+│   └── crm_router.js                 # crm route-handler
 |
 |──  jwt/
-|   └── auth.js                 # jwt-implementation(middleware)
+|   └── auth.js                       # jwt-implementation(middleware)
 |   
 ├── model/
-│   ├── lead.js                 # lead-model
-│   └── user.js                 # user-model
+│   ├── lead.js                       # lead-model
+|   ├── agent.js                      # agent-model
+|   ├── notification.js               # notification-model
+│   └── user.js                       # user-model
 |
 ├── .env
 |
