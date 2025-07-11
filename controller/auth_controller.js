@@ -79,13 +79,13 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     //check user existence
-    if (!user) return res.status(400).json({ error: "Invalid username or password" });
+    if (!user) return res.status(400).json({ error: "Invalid email or password" });
     //password-authentication
     const valid = await bcrypt.compare(password, user.password);
-    if (!valid) return res.status(400).json({ error: "Invalid username or password" });
+    if (!valid) return res.status(400).json({ error: "Invalid email or password" });
 
     //create jwt-token - 1hr validity
-    const token = jwt.sign({ id: user.id, email: user.email }, process.env.HASH_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id, email: user.email, type: "user" }, process.env.HASH_KEY, { expiresIn: "1h" });
 
     // console.log("***************************************")
     // console.log("User login:", user)
@@ -101,6 +101,7 @@ exports.getProfile = async (req, res) => {
 
         //initialize user
         const user = await User.findByPk(req.user.id);
+        if(user.type != "user") return res.status(404).json({ error: "Only users authorized"})
         //check user validity
         if (!user) return res.status(404).json({ error: "User not found" });
 
