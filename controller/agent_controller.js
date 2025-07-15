@@ -5,6 +5,8 @@ const Agent = require("../model/agent");
 
 exports.signup = async (req, res) => {
 
+    if(req.user.type != "user") return res.status(404).json({ error: "Only users authorized"})
+        
     //initialize agent
     const { title, email, agent_password, agent_type } = req.body;
     //find agent

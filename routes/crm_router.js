@@ -10,15 +10,14 @@ const {
 } = require("../controller/auth_controller");
 
 
-// Routes
+router.post("/login", login);
 router.post("/signup", signup);
 router.post("/verify", verifyOtp);
-router.post("/login", login);
 
 //jwt-middleware
 router.use(auth);
 
-//below endpoints uses jwt-middleware
+// Routes
 router.get("/profile", getProfile);
 router.post("/edit", editProfile);
 

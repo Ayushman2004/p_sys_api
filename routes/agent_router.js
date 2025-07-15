@@ -5,12 +5,14 @@ const{
     checkin, checkout
 } = require("../controller/agent_att_controller")
 
+//login
+router.post("/login", login)
+
 //jwt-middleware
 router.use(auth);
 
 //routes
 router.post("/signup", signup)
-router.post("/login", login)
 router.post("/checkin", checkin)
 router.post("/checkout", checkout)
 

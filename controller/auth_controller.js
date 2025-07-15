@@ -99,10 +99,10 @@ exports.login = async (req, res) => {
 exports.getProfile = async (req, res) => {
     try {   
 
-        if(user.type != "user") return res.status(404).json({ error: "Only users authorized"})
-
+        if(req.user.type != "user") return res.status(404).json({ error: "Only users authorized"})
         //initialize user
         const user = await User.findByPk(req.user.id);
+
         //check user validity
         if (!user) return res.status(404).json({ error: "User not found" });
 
@@ -128,6 +128,7 @@ exports.getProfile = async (req, res) => {
 exports.editProfile = async (req, res) => {
     try {
 
+        if(req.user.type != "user") return res.status(404).json({ error: "Only users authorized"})
         //initialize user
         const user = await User.findByPk(req.user.id);
         //check user validity
