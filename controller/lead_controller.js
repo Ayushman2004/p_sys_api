@@ -6,6 +6,9 @@ const Lead = require("../model/lead");
 exports.getLead = async (req, res) => {
     try {
 
+        if(req.user.type != "agent") return res.status(404).json({ error: "Only agents authorized"})
+        const assigned_agent_id = req.user.id;
+        
         const leadId = req.params.id;
 
         //check leadId's presence (extra layer for security)
@@ -14,6 +17,9 @@ exports.getLead = async (req, res) => {
 
         //initialize lead
         const lead = await Lead.findByPk(leadId);
+
+        if(lead.assigned != assigned_agent_id )
+            return res.status(400).json( {error: "Agent not authorized"})
 
         //check lead validity
         if (!lead) return res.status(404).json({ error: "Lead not found" });
@@ -49,6 +55,9 @@ exports.getLead = async (req, res) => {
 
 exports.deleteLead = async (req, res) => {
   try {
+
+    if(req.user.type != "user") return res.status(404).json({ error: "Only user authorized"})
+
     const leadId = req.params.id;
 
     //check leadId's presence (extra layer for security)
@@ -76,6 +85,9 @@ exports.deleteLead = async (req, res) => {
 
 exports.bulkDeleteLeads = async (req, res) => {
   try {
+
+    if(req.user.type != "user") return res.status(404).json({ error: "Only user authorized"})
+
     const idsToDelete = req.body.delete;
 
     //check if a non-empty valid array is provided or not
@@ -102,6 +114,9 @@ exports.bulkDeleteLeads = async (req, res) => {
 
 exports.importLeadFile = async (req, res) => {
   try {
+
+    if(req.user.type != "user") return res.status(404).json({ error: "Only user authorized"})
+
     const filePath = req.file.path; // Path to the uploaded CSV file
     const fileName = req.file.originalname;
 
@@ -133,10 +148,12 @@ exports.importLeadFile = async (req, res) => {
 
 exports.createLead = async (req, res) => {
 
+    if(req.user.type != "user") return res.status(404).json({ error: "Only user authorized"})
+
     //initialize user
     const { 
-      name,title, email, mobile, source, service,
-      message, assigned, zip, city, state, address,
+      name,title, email, assigned, mobile, source, service,
+      message, zip, city, state, address,
       country, website, date_contacted, description } = req.body;
 
     //find user
@@ -147,11 +164,11 @@ exports.createLead = async (req, res) => {
 
     //back-end field computation
     const currentTime = new Date();
-
+    
     //create user
     const lead = await Lead.create({
-        name,title, email, mobile, source, service,
-      message, assigned, zip, city, state, address,
+        name,title, email, assigned, mobile, source, service,
+      message, zip, city, state, address,
       country, website, date_contacted, description,
       created_at: currentTime
     });

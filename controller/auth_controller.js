@@ -97,11 +97,12 @@ exports.login = async (req, res) => {
 
 //fetches profile data
 exports.getProfile = async (req, res) => {
-    try {
+    try {   
+
+        if(user.type != "user") return res.status(404).json({ error: "Only users authorized"})
 
         //initialize user
         const user = await User.findByPk(req.user.id);
-        if(user.type != "user") return res.status(404).json({ error: "Only users authorized"})
         //check user validity
         if (!user) return res.status(404).json({ error: "User not found" });
 

@@ -41,10 +41,10 @@ const Agent = sequelize.define("Agent", {
     type: DataTypes.DATE,
     allowNull: true,
     defaultValue: null,
-    onUpdate: sequelize.literal("CURRENT_TIMESTAMP") // note: this doesn't work automatically; see note below
+    onUpdate: sequelize.literal("CURRENT_TIMESTAMP") //check later during dev
   }
 }, {
-  tableName: "lms_agents",  // Use your actual table name
+  tableName: "lms_agents",  
   timestamps: false
 });
 
