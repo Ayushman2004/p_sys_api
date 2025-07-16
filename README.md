@@ -18,34 +18,33 @@ node app.js
 
 ```text
 .
-|── app.js                            # start-point
-|
-├── config/
-│   └── db.js                         # sequelize-init
-|
-├── controller/ 
-│   ├── auth_controller.js            # auth-controller
-|   ├── agent_controller.js           # agent-controller
-|   ├── notification_controller.js    # notification-controller
-│   └── lead_controller.js            # lead-controller
-|
-├── routes/ 
-│   ├── lead_router.js                # lead route-handler
-|   ├── agent_router.js               # agent route-handler
-|   ├── notification_router.js        # notification route-handler
-│   └── crm_router.js                 # crm route-handler
-|
-|──  jwt/
-|   └── auth.js                       # jwt-implementation(middleware)
-|   
-├── model/
-│   ├── lead.js                       # lead-model
-|   ├── agent.js                      # agent-model
-|   ├── notification.js               # notification-model
-│   └── user.js                       # user-model
-|
-├── .env
-|
+├── app.js
+├── config
+│   └── db.js
+├── controller
+│   ├── agent_att_controller.js
+│   ├── agent_controller.js
+│   ├── auth_controller.js
+│   ├── lead_att_controller.js
+│   ├── lead_controller.js
+│   └── notification_controller.js
+├── documentation.pdf
+├── jwt
+│   └── auth.js
+├── model
+│   ├── agent_attendence.js
+│   ├── agent.js
+│   ├── lead_attendence.js
+│   ├── lead.js
+│   ├── notification.js
+│   └── user.js
+├── package.json
 ├── package-lock.json
-└── package.json  
+├── README.md
+├── routes
+│   ├── agent_router.js
+│   ├── crm_router.js
+│   ├── lead_router.js
+│   └── notification_router.js
+└── uploads 
 ```    
