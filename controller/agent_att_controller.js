@@ -14,8 +14,9 @@ exports.checkin = async (req, res) => {
       where: { agent_id },
       order: [["checkin_time", "DESC"]],
     });
+    
 
-    if (latestAttendance.checkout_time === null)
+    if (latestAttendance && latestAttendance.checkout_time === null)
       return res.status(400).json({ error: "Already checked-in" });
 
     // Perform check-in

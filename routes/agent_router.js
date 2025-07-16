@@ -4,6 +4,7 @@ const { signup, login } = require("../controller/agent_controller")
 const{
     checkin, checkout
 } = require("../controller/agent_att_controller")
+const auth = require("../jwt/auth");
 
 //login
 router.post("/login", login)

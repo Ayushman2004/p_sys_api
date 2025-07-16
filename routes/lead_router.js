@@ -11,6 +11,7 @@ const {
 const{
     checkin, checkout
 } = require("../controller/lead_att_controller")
+const auth = require("../jwt/auth");
 
 const upload = multer({ dest: "uploads/" });
 

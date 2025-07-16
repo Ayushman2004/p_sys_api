@@ -8,7 +8,7 @@ exports.checkin = async (req, res) => {
       return res.status(403).json({ error: "Only agents authorized" });
 
     const assigned_agent_id = req.user.id;
-    const { lead_id, lead_name, photo, checkin_message, checkin_location } = req.body;
+    const { lead_id, photo, checkin_message, checkin_location } = req.body;
 
     const lead = await Lead.findByPk(lead_id);
     if (!lead) return res.status(404).json({ error: "Lead not found" });
@@ -27,7 +27,7 @@ exports.checkin = async (req, res) => {
     // Perform check-in
     const lead_att = await LeadAtt.create({
       lead_id,
-      lead_name,
+      lead_name: lead.name,
       photo,
       checkin_message,
       checkin_location,
