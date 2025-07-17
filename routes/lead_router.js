@@ -13,7 +13,9 @@ const{
 } = require("../controller/lead_att_controller")
 const auth = require("../jwt/auth");
 
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: "uploads/" })
+const storage = multer.memoryStorage()
+const p_upload = multer({ storage })
 
 //jwt-middleware
 router.use(auth);
@@ -24,7 +26,7 @@ router.delete("/:id", deleteLead)
 router.post("/bulk-delete", bulkDeleteLeads)
 router.post("/create", createLead)
 router.post("/import", upload.single("file"), importLeadFile)
-router.post("/checkin", checkin )
+router.post("/checkin",p_upload.single("photo"), checkin )
 router.post("/checkout", checkout)
 
 module.exports = router;
