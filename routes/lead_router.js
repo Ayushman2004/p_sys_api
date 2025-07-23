@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const router = express.Router();
 const {
+    getAllLead,
     getLead,
     deleteLead,
     bulkDeleteLeads,
@@ -21,6 +22,7 @@ const p_upload = multer({ storage })
 router.use(auth);
 
 //routes
+router.get("/", getAllLead)
 router.get("/:id", getLead)
 router.delete("/:id", deleteLead)
 router.post("/bulk-delete", bulkDeleteLeads)

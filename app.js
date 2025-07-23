@@ -15,10 +15,10 @@ sequelize.sync()
     .catch(console.error);
 
 // Routes
-app.use("/agent", agentRouter)
-app.use("/notif", notifRouter)
-app.use("/lead", leadRouter)
-app.use("/", crmRoutes)
+app.use("/api/agent", agentRouter)
+app.use("/api/notif", notifRouter)
+app.use("/api/lead", leadRouter)
+app.use("/api", crmRoutes)
 
 // Start server
 const PORT = process.env.PORT;

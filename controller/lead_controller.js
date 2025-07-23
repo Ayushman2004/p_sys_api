@@ -3,6 +3,24 @@ const csv = require('csvtojson');
 const fs = require('fs');
 const Lead = require("../model/lead");
 
+exports.getAllLead = async(req, res) => {
+  try{
+    if(req.user.type != "agent") return res.status(404).json({ error: "Only agents authorized"})
+    const agent_id = req.user.id
+
+    const leads = await Lead.findAll({
+      where: {
+        assigned: agent_id
+      }
+    })
+
+    return res.status(200).json(leads)
+
+  }catch(err){
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+}
+
 exports.getLead = async (req, res) => {
     try {
 
