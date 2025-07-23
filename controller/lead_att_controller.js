@@ -8,16 +8,19 @@ exports.checkin = async (req, res) => {
       return res.status(403).json({ error: "Only agents authorized" });
 
     const assigned_agent_id = req.user.id;
-    const { lead_id, checkin_message, checkin_location } = req.body;
+    //const { lead_id, checkin_message, checkin_location } = req.body;
 
-    const lead = await Lead.findByPk(lead_id);
+    const jsonData = JSON.parse(req.body.payload);
+
+
+    const lead = await Lead.findByPk(jsonData.lead_id);
     if (!lead) return res.status(404).json({ error: "Lead not found" });
     if (lead.assigned !== assigned_agent_id)
       return res.status(403).json({ error: "Agent not authorized" });
 
     // Check if already checked-in
     const latestAttendance = await LeadAtt.findOne({
-      where: { lead_id },
+      where: { lead_id: jsonData.lead_id },
       order: [["checkin_time", "DESC"]],
     });
 
@@ -28,11 +31,11 @@ exports.checkin = async (req, res) => {
 
     // Perform check-in
     const lead_att = await LeadAtt.create({
-      lead_id,
+      lead_id: jsonData.lead_id,
       lead_name: lead.name,
       photo: photoBuffer,
-      checkin_message,
-      checkin_location,
+      checkin_message: jsonData.checkin_message,
+      checkin_location: jsonData.checkin_location,
       checkin_time: new Date(),
       checkout_time: null,
     });
