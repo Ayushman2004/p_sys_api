@@ -28,7 +28,7 @@ exports.createNotif = async (req, res) => {
 
     await notif.save();
 
-    res.status(201).json({ message: "Notofication created successfully" });
+    res.status(201).json({ message: "Notification created successfully" });
 };
 
 exports.showNotif = async(req, res)=> {
