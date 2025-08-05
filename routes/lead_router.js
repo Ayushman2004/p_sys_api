@@ -29,7 +29,7 @@ router.post("/bulk-delete", bulkDeleteLeads)
 router.post("/create", createLead)
 router.post("/import", upload.single("file"), importLeadFile)
 router.post("/checkin",p_upload.single("photo"), checkin )
-router.post("/checkout", checkout)
+router.post("/checkout",p_upload.single("photo"), checkout)
 
 module.exports = router;
 

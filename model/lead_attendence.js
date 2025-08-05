@@ -15,7 +15,10 @@ const Lead_att = sequelize.define("LeadAtt", {
     type: DataTypes.STRING(255),
     allowNull: false
   },
-  photo: {
+  check_in_photo: {
+    type: DataTypes.BLOB('long')
+  },
+  check_out_photo: {
     type: DataTypes.BLOB('long')
   },
   checkin_message: {

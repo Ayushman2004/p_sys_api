@@ -13,6 +13,9 @@ const {
 router.post("/login", login);
 router.post("/signup", signup);
 router.post("/verify", verifyOtp);
+router.get('/try', (req,res)=> {
+    res.send("the api is working")
+})
 
 //jwt-middleware
 router.use(auth);
@@ -20,5 +23,6 @@ router.use(auth);
 // Routes
 router.get("/profile", getProfile);
 router.post("/edit", editProfile);
+
 
 module.exports = router;
